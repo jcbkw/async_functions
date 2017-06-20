@@ -1,0 +1,106 @@
+<html><head><script type="text/javascript"> for (var i = 0; i < 10; i += 1) {
+
+   //console.log(i);
+  
+}
+
+
+function each (i, limit, incrBy, blockToRun) {
+    
+   if (i < limit) {
+      
+     blockToRun(i);
+     each(i += incrBy, limit, incrBy, blockToRun);
+       
+   }
+   
+}
+
+
+each(0, 10, 1, function (i) {
+
+  //console.log(i);
+  return false;
+  
+})
+  
+  
+function eachAsync (i, limit, incrBy, blockToRun) {
+    
+   if (i < limit) {
+      
+     blockToRun(function () {
+     	
+       eachAsync(i += incrBy, limit, incrBy, blockToRun);
+     
+     }, i);
+       
+   }
+   
+}
+
+
+eachAsync(0, 10, 1, function (callback, i) {
+	
+  // console.log(i);
+  
+  // or (synchronous)
+  //callback();
+  
+  // or
+  // setTimeout(callback, 1000);
+  
+  // or 
+  /*$.getJSON('/my/json', function (data) {
+  	
+    // do something with data
+    callback();
+  
+  });*/
+  
+  
+})
+  
+  
+  
+function eachAsyncPromise (i, limit, incrBy, blockToRun) {
+    
+   if (i < limit) {
+      
+     blockToRun(i).then(function () {
+     	
+       eachAsyncPromise(i += incrBy, limit, incrBy, blockToRun);
+     
+     });
+       
+   }
+   
+}
+
+
+eachAsyncPromise(0, 10, 1, function (i) {
+  
+  return new Promise(function (resolve) {
+  	
+    
+    console.log(i);
+  
+    // or (synchronous)
+    //resolve();
+    
+    // or
+    setTimeout(resolve, 1000);
+    
+    // or 
+    /*$.getJSON('/my/json', function (data) {
+      
+      // do something with data
+      resolve();
+    
+    });*/
+  
+  
+  });
+  
+  
+})</script></head><body scroll="auto"></body></html>
